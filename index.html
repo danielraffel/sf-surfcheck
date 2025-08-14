@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF SURF CHECK - Righteous Waves Since '85</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ocean-bg"></div>
+    <div class="container">
+        <!-- Header with retro vibe -->
+        <header>
+            <div class="neon-border">
+                <h1 class="main-title">
+                    <span class="wave">~</span>
+                    SF SURF CHECK
+                    <span class="wave">~</span>
+                </h1>
+                <p class="tagline">Your Stoke Forecast for NorCal Breaks</p>
+            </div>
+        </header>
+
+        <!-- Skill Level Selector -->
+        <div class="skill-selector">
+            <h2 class="section-title">What's Your Level, Brah?</h2>
+            <div class="skill-buttons">
+                <button class="skill-btn" data-level="grom">
+                    <span class="btn-icon">🏄</span>
+                    <span class="btn-text">Grom</span>
+                    <span class="btn-desc">(Just Getting Wet)</span>
+                </button>
+                <button class="skill-btn" data-level="intermediate">
+                    <span class="btn-icon">🏄‍♂️</span>
+                    <span class="btn-text">Intermediate</span>
+                    <span class="btn-desc">(Can Handle the Lineup)</span>
+                </button>
+                <button class="skill-btn" data-level="ripper">
+                    <span class="btn-icon">🔥</span>
+                    <span class="btn-text">Ripper</span>
+                    <span class="btn-desc">(Charging Everything)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Beach Selector -->
+        <div class="beach-selector">
+            <h2 class="section-title">Pick Your Break</h2>
+            <div class="beach-tabs">
+                <button class="beach-tab active" data-beach="ocean-beach">Ocean Beach</button>
+                <button class="beach-tab" data-beach="pacifica">Pacifica / Linda Mar</button>
+                <button class="beach-tab" data-beach="mavericks">Mavericks</button>
+                <button class="beach-tab" data-beach="fort-point">Fort Point</button>
+                <button class="beach-tab" data-beach="bolinas">Bolinas</button>
+            </div>
+        </div>
+
+        <!-- 7-Day Forecast -->
+        <div class="forecast-container">
+            <h2 class="section-title">
+                <span class="palm">🌴</span>
+                Seven Day Swell Report
+                <span class="palm">🌴</span>
+            </h2>
+            <div id="forecast-grid" class="forecast-grid">
+                <!-- Forecast cards will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Reading the Sesh:</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="condition-epic">■</span> Epic - Get Out There!
+                </div>
+                <div class="legend-item">
+                    <span class="condition-firing">■</span> Firing - Solid Session
+                </div>
+                <div class="legend-item">
+                    <span class="condition-fair">■</span> Fair - Worth a Paddle
+                </div>
+                <div class="legend-item">
+                    <span class="condition-blown">■</span> Blown Out - Save Your Wax
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">
+                Keep the Stoke Alive • No Kooks • Respect the Locals
+            </p>
+            <p class="footer-credit">
+                Est. 1985 in the Spirit of Aloha 🤙
+            </p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
