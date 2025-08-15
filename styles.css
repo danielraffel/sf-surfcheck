@@ -279,6 +279,21 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 15px;
     margin-top: 20px;
+    transition: opacity 0.3s;
+}
+
+.forecast-grid.loading {
+    opacity: 0.5;
+}
+
+.warning-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
 }
 
 .forecast-card {

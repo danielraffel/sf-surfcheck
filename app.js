@@ -45,6 +45,7 @@ const surfSpots = {
 // State management
 let userLevel = localStorage.getItem('surfLevel') || null;
 let selectedBeach = localStorage.getItem('surfBeach') || 'ocean-beach';
+let forecastHeight = null;
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
@@ -138,14 +139,16 @@ function showForecast() {
 async function generateForecast() {
     const forecastGrid = document.getElementById('forecast-grid');
     const spot = surfSpots[selectedBeach];
+    if (forecastHeight !== null) {
+        forecastGrid.style.height = `${forecastHeight}px`;
+    }
 
-    // Clear existing forecast
-    forecastGrid.innerHTML = '';
+    forecastGrid.classList.add('loading');
 
     // Warn users away from Mavericks unless they are rippers
     if (selectedBeach === 'mavericks' && userLevel !== 'ripper') {
         forecastGrid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <div class="warning-message">
                 <h3 style="color: #ff00ff; font-size: 2rem;">WHOA THERE, ${userLevel ? userLevel.toUpperCase() : 'BUDDY'}!</h3>
                 <p style="color: #ffff00; font-size: 1.2rem; margin-top: 20px;">
                     Mavericks ain't for you yet, brah. This wave will straight-up eat you for breakfast.
@@ -156,6 +159,7 @@ async function generateForecast() {
                 </p>
             </div>
         `;
+        forecastGrid.classList.remove('loading');
         return;
     }
 
@@ -166,32 +170,38 @@ async function generateForecast() {
         const days = data.daily.time;
         const heights = data.daily.wave_height_max;
 
-        days.forEach((date, index) => {
+        const cards = days.map((date, index) => {
             const heightFt = (heights[index] * 3.281).toFixed(1);
             const condition = getCondition(heightFt);
             const bestTime = generateBestTime(condition, index);
             const dayName = index === 0 ? 'Today' : new Date(date).toLocaleDateString(undefined, { weekday: 'long' });
 
-            const card = document.createElement('div');
-            card.className = 'forecast-card';
-
-            card.innerHTML = `
-                <div class="day-name">${dayName}</div>
-                <div class="wave-height">${heightFt}ft</div>
-                <div class="best-time">
-                    <strong>Best:</strong><br>
-                    ${bestTime}
-                </div>
-                <div class="conditions condition-${condition.toLowerCase().replace(' ', '-')}">
-                    ${condition}
+            return `
+                <div class="forecast-card">
+                    <div class="day-name">${dayName}</div>
+                    <div class="wave-height">${heightFt}ft</div>
+                    <div class="best-time">
+                        <strong>Best:</strong><br>
+                        ${bestTime}
+                    </div>
+                    <div class="conditions condition-${condition.toLowerCase().replace(' ', '-')}">
+                        ${condition}
+                    </div>
                 </div>
             `;
+        }).join('');
 
-            forecastGrid.appendChild(card);
-        });
+        forecastGrid.innerHTML = cards;
+
+        if (forecastHeight === null) {
+            forecastHeight = forecastGrid.offsetHeight;
+            forecastGrid.style.height = `${forecastHeight}px`;
+        }
     } catch (err) {
-        forecastGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px;">Unable to load forecast</div>';
+        forecastGrid.innerHTML = '<div class="warning-message">Unable to load forecast</div>';
         console.error(err);
+    } finally {
+        forecastGrid.classList.remove('loading');
     }
 }
 
